@@ -1,0 +1,15 @@
+---
+# defaults file for packages
+
+additional_packages:
+  - lsof                    # lsof
+  - wget                    # wget
+  - nmap-ncat               # netcat
+  - mlocate                 # locate
+  - bash-completion         # bash completion
+  - bind-utils              # dig
+  #- net-tools               # netstat
+  #- policycoreutils-python  # audit2why
+  #- telnet                  # telnet
+  #- git-all                 # git + additional
+
