@@ -1,7 +1,34 @@
 ---
 # tasks file for packages
 
-- name: Install required packages
+- name: enable/disable SCL repository on RedHat
+  rhsm_repository:
+    name: rhel-server-rhscl-7-rpms
+    state: "{{ additional_packages_scl is defined | ternary('enabled','disabled') }}"
+  when:
+    - ansible_distribution == "RedHat"
+
+- name: enable/disable SCL repository on CentOS
+  package:
+    name: centos-release-scl
+    state: "{{ additional_packages_scl is defined | ternary('present','absent') }}"
+  when:
+    - ansible_distribution == "CentOS"
+
+- name: install required packages
   yum:
-    name: "{{ additional_packages }}"
+    name: "{{ additional_packages | union(additional_packages_scl | default([])) }}"
     state: present
+
+- name: enable installed SCL packages
+  copy:
+    src: "etc/profile.d/scl-enable-{{ item }}.sh"
+    dest: "/etc/profile.d/scl-enable-{{ item }}.sh"
+    owner: root
+    group: root
+    mode: u=rw,g=r,o=r
+  loop: "{{ additional_packages_scl }}"
+  when:
+    - additional_packages_scl is defined
+    - ( role_path + '/files/etc/profile.d/scl-enable-' + item + '.sh' ) is file
+
