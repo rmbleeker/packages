@@ -1,10 +1,18 @@
 ---
 # tasks file for packages
 
+- name: install the Satellite client certificate and key
+  copy:
+    src: "/ansible/files/ID_en_D-client-key-cert.pem"
+    dest: "{{ satellite_client_cert }}"
+  when:
+    - satellite_client_cert is defined
+
 - name: enable/disable SCL repository on RedHat
   rhsm_repository:
     name: rhel-server-rhscl-7-rpms
     state: "{{ additional_packages_scl is defined | ternary('enabled','disabled') }}"
+  ignore_errors: yes
   when:
     - ansible_distribution == "RedHat"
 
