@@ -3,10 +3,11 @@
 
 - name: install the Satellite client certificate and key
   copy:
-    src: "/ansible/files/ID_en_D-client-key-cert.pem"
+    src: "{{ local_satellite_client_cert }}"
     dest: "{{ satellite_client_cert }}"
   when:
     - satellite_client_cert is defined
+    - local_satellite_client_cert is file
 
 - name: enable/disable SCL repository on RedHat
   rhsm_repository:
@@ -27,6 +28,8 @@
   yum:
     name: "{{ additional_packages | union(additional_packages_scl | default([])) }}"
     state: present
+    update_cache: yes
+    skip_broken: yes
 
 - name: enable installed SCL packages
   copy:
