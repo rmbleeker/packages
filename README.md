@@ -1,31 +1,40 @@
-Role Name
-=========
+packages
+========
 
-A brief description of the role goes here.
+Install software from the repositories through the distribution's package manager
 
 Requirements
 ------------
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+When installing packages for users on Red Hat or CentOS from the Software Collections (SCL), make sure there is a shell file in `files/etc/profile.d/` that properly enables the package by setting the user's path and such. See the `scl-enable-rh-git218.sh` file as an example.
 
 Role Variables
 --------------
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+```yaml
+additional_packages:          # a list of packages to install
+additional_packages_scl:      # a list of packages to install from the Software Collections repository
+```
+
+When using a file repository on a Red Hat Satellite server, the client needs a certificate to download packages from it
+```yaml
+satellite_client_cert:        # location of the Satellite client certificate on the client
+local_satellite_client_cert:  # location of the Satellite client certificate on the Ansible server
+```
 
 Dependencies
 ------------
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+None
 
 Example Playbook
 ----------------
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
+```yaml
     - hosts: servers
       roles:
-         - { role: username.rolename, x: 42 }
+         - { role: packages, additional_packages: vim }
+```
 
 License
 -------
@@ -35,4 +44,4 @@ BSD
 Author Information
 ------------------
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+Ruud Bleeker <rbleeker@gmail.com>
