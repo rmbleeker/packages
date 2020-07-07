@@ -11,7 +11,7 @@
 
 - name: enable/disable SCL repository on RedHat
   rhsm_repository:
-    name: rhel-server-rhscl-7-rpms
+    name: "{{ rhscl_repo }}"
     state: "{{ additional_packages_scl is defined | ternary('enabled','disabled') }}"
   ignore_errors: yes
   when:

@@ -1,6 +1,8 @@
 ---
 # defaults file for packages
 
+rhscl_repo: rhel-server-rhscl-7-rpms
+
 additional_packages:
   - vim                     # vim
   - lsof                    # lsof
