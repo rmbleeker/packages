@@ -24,6 +24,10 @@
   when:
     - ansible_distribution == "CentOS"
 
+- name: enable EPEL repository
+  import_tasks: epel.yml
+  when: enable_epel
+
 - name: install required packages
   yum:
     name: "{{ additional_packages | union(additional_packages_scl | default([])) }}"

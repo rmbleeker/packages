@@ -1,0 +1,37 @@
+{{ ansible_managed }}
+
+[epel]
+name=Extra Packages for Enterprise Linux $releasever - $basearch
+{% if epel_metalink is defined %}
+metalink={{ epel_metalink + 'epel-$releasever&arch=$basearch&infra=$infra&content=$contentdir' }}
+{% elif epel_baseurl is defined %}
+baseurl={{ epel_baseurl + '/$releasever' + ('/Everything' if ansible_distribution_major_version == '8' else '') + '/$basearch' }}
+{% endif %}
+failovermethod=priority
+enabled=1
+gpgcheck={{ '1' if epel_gpgcheck }}
+gpgkey={{ epel_gpgkey }}
+
+[epel-debuginfo]
+name=Extra Packages for Enterprise Linux $releasever - $basearch - Debug
+{% if epel_metalink is defined %}
+metalink={{ epel_metalink + 'epel-debug-$releasever&arch=$basearch&infra=$infra&content=$contentdir' }}
+{% elif epel_baseurl is defined %}
+baseurl={{ epel_baseurl + '/$releasever' + ('/Everything' if ansible_distribution_major_version == '8' else '') + '/$basearch/debug' }}
+{% endif %}
+failovermethod=priority
+enabled={{ '1' if epel_enable_debug else '0' }}
+gpgcheck={{ '1' if epel_gpgcheck }}
+gpgkey={{ epel_gpgkey }}
+
+[epel-source]
+name=Extra Packages for Enterprise Linux $releasever - $basearch - Source
+{% if epel_metalink is defined %}
+metalink={{ epel_metalink + 'epel-source-$releasever&arch=$basearch&infra=$infra&content=$contentdir' }}
+{% elif epel_baseurl is defined %}
+baseurl={{ epel_baseurl + '/$releasever' + ('/Everything' if ansible_distribution_major_version == '8' else '') + '/SRPMS' }}
+{% endif %}
+failovermethod=priority
+enabled={{ '1' if epel_enable_source else '0' }}
+gpgcheck={{ '1' if epel_gpgcheck }}
+gpgkey={{ epel_gpgkey }}

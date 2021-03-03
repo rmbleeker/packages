@@ -17,3 +17,11 @@ additional_packages:
   #- telnet                  # telnet
   #- git-all                 # git + additional
 
+enable_epel: false
+epel_baseurl: 'http://download.fedoraproject.org/pub/epel'
+#epel_metalink: 'https://mirrors.fedoraproject.org/metalink?repo='
+epel_enable_debug: false
+epel_enable_source: false
+epel_enable_testing: false
+epel_gpgkey: "file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-{{ ansible_distribution_major_version if ansible_os_family == 'RedHat' }}"
+epel_gpgcheck: true
