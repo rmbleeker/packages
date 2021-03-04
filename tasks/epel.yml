@@ -2,7 +2,7 @@
 
 - name: install EPEL package
   yum:
-    name: epel-release
+    name: "{{ epel_baseurl }}/epel-release-latest-7.noarch.rpm"
     state: present
 
 - name: correct the EPEL repo file
