@@ -1,6 +1,6 @@
 # {{ ansible_managed }}
 
-[epel]
+[epel-testing]
 name=Extra Packages for Enterprise Linux $releasever - $basearch
 {% if epel_metalink is defined %}
 metalink={{ epel_metalink + 'testing-epel$releasever&arch=$basearch&infra=$infra&content=$contentdir' }}
@@ -12,7 +12,7 @@ enabled={{ '1' if epel_enable_testing else '0' }}
 gpgcheck={{ '1' if epel_gpgcheck }}
 gpgkey={{ epel_gpgkey }}
 
-[epel-debuginfo]
+[epel-testing-debuginfo]
 name=Extra Packages for Enterprise Linux $releasever - $basearch - Debug
 {% if epel_metalink is defined %}
 metalink={{ epel_metalink + 'testing-debug-epel$releasever&arch=$basearch&infra=$infra&content=$contentdir' }}
@@ -24,7 +24,7 @@ enabled={{ '1' if (epel_enable_debug and epel_enble_testing) else '0' }}
 gpgcheck={{ '1' if epel_gpgcheck }}
 gpgkey={{ epel_gpgkey }}
 
-[epel-source]
+[epel-testing-source]
 name=Extra Packages for Enterprise Linux $releasever - $basearch - Source
 {% if epel_metalink is defined %}
 metalink={{ epel_metalink + 'testing-source-epel$releasever&arch=$basearch&infra=$infra&content=$contentdir' }}
