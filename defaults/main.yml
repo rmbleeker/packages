@@ -4,6 +4,7 @@
 rhscl_repo: rhel-server-rhscl-7-rpms
 
 additional_packages:
+  - at                      # schedule jobs
   - vim                     # vim
   - tree                    # tree
   - lsof                    # lsof
