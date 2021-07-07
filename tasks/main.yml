@@ -1,6 +1,16 @@
 ---
 # tasks file for packages
 
+- name: configure the proxy for YUM
+  ini_file:
+    path: /etc/yum.conf
+    section: main
+    option: proxy
+    value: "{{ proxy }}"
+    no_extra_spaces: yes
+  when:
+    - proxy is defined
+
 - name: install the Satellite client certificate and key
   copy:
     src: "{{ local_satellite_client_cert }}"
