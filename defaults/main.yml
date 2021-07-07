@@ -13,8 +13,8 @@ additional_packages:
   - mlocate                 # locate
   - bash-completion         # bash completion
   - bind-utils              # dig
+  - policycoreutils-python  # audit2why
   #- net-tools               # netstat
-  #- policycoreutils-python  # audit2why
   #- telnet                  # telnet
   #- git-all                 # git + additional
 
